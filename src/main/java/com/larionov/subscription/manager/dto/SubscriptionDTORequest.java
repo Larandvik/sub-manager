@@ -3,10 +3,9 @@ package com.larionov.subscription.manager.dto;
 import lombok.Builder;
 
 @Builder
-public record UserRequest(
+public record SubscriptionDTORequest(
 
-        String name,
-        String email
+        String serviceName
 
 ) {
 }

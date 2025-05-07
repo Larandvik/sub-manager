@@ -3,7 +3,7 @@ package com.larionov.subscription.manager.dto;
 import lombok.Builder;
 
 @Builder
-public record UserResponse(
+public record UserDTOResponse(
 
         Long id,
         String name,

@@ -1,8 +1,8 @@
 package com.larionov.subscription.manager.service;
 
 import com.larionov.subscription.manager.config.TopServicesProps;
-import com.larionov.subscription.manager.dto.SubscriptionRequest;
-import com.larionov.subscription.manager.dto.SubscriptionResponse;
+import com.larionov.subscription.manager.dto.SubscriptionDTORequest;
+import com.larionov.subscription.manager.dto.SubscriptionDTOResponse;
 import com.larionov.subscription.manager.exception.NotFoundException;
 import com.larionov.subscription.manager.model.SubscriptionEntity;
 import com.larionov.subscription.manager.model.UserEntity;
@@ -23,7 +23,7 @@ public class SubscriptionService {
     private final SubscriptionRepository subRepository;
     private final TopServicesProps props;
 
-    public SubscriptionResponse add(Long userId, SubscriptionRequest request) {
+    public SubscriptionDTOResponse add(Long userId, SubscriptionDTORequest request) {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User not found: " + userId));
         SubscriptionEntity subscription = SubscriptionEntity.builder()
@@ -32,12 +32,12 @@ public class SubscriptionService {
                 .build();
 
         subRepository.save(subscription);
-        return new SubscriptionResponse(subscription.getId(), subscription.getName());
+        return new SubscriptionDTOResponse(subscription.getId(), subscription.getName());
     }
 
-    public List<SubscriptionResponse> getSubscriptions(Long userId) {
+    public List<SubscriptionDTOResponse> getSubscriptions(Long userId) {
         return subRepository.findAllByUserId(userId).stream()
-                .map(sub -> new SubscriptionResponse(sub.getId(), sub.getName()))
+                .map(sub -> new SubscriptionDTOResponse(sub.getId(), sub.getName()))
                 .toList();
     }
 
@@ -48,11 +48,11 @@ public class SubscriptionService {
         subRepository.deleteById(id);
     }
 
-    public List<SubscriptionResponse> getTopServices() {
+    public List<SubscriptionDTOResponse> getTopServices() {
         Pageable page = PageRequest.of(0, props.getCount());
         List<SubscriptionEntity> topServices = subRepository.findTopServices(page);
         return topServices.stream()
-                .map(sub -> new SubscriptionResponse(sub.getId(), sub.getName()))
+                .map(sub -> new SubscriptionDTOResponse(sub.getId(), sub.getName()))
                 .toList();
     }
 

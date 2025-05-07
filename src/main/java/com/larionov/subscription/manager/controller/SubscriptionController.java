@@ -1,7 +1,7 @@
 package com.larionov.subscription.manager.controller;
 
-import com.larionov.subscription.manager.dto.SubscriptionRequest;
-import com.larionov.subscription.manager.dto.SubscriptionResponse;
+import com.larionov.subscription.manager.dto.SubscriptionDTORequest;
+import com.larionov.subscription.manager.dto.SubscriptionDTOResponse;
 import com.larionov.subscription.manager.service.SubscriptionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +18,15 @@ public class SubscriptionController {
     @PostMapping(path = "/users/{id}/subscriptions",
             consumes = "application/json",
             produces = "application/json")
-    public SubscriptionResponse addSubscription(@PathVariable Long id,
-                                                @Valid @RequestBody SubscriptionRequest request) {
+    public SubscriptionDTOResponse addSubscription(@PathVariable Long id,
+                                                   @Valid @RequestBody SubscriptionDTORequest request) {
         return service.add(id, request);
     }
 
     @GetMapping(path = "/users/{id}/subscriptions",
             consumes = "application/json",
             produces = "application/json")
-    public List<SubscriptionResponse> getAllSubscriptions(@PathVariable Long id) {
+    public List<SubscriptionDTOResponse> getAllSubscriptions(@PathVariable Long id) {
         return service.getSubscriptions(id);
     }
 
@@ -40,7 +40,7 @@ public class SubscriptionController {
     @GetMapping(path = "/subscriptions/top",
             consumes = "application/json",
             produces = "application/json")
-    public List<SubscriptionResponse> getTopSubscriptions() {
+    public List<SubscriptionDTOResponse> getTopSubscriptions() {
         return service.getTopServices();
     }
 
