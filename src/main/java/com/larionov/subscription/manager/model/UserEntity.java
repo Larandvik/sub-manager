@@ -3,8 +3,6 @@ package com.larionov.subscription.manager.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
-
 @Entity
 @Table(name = "users")
 @Getter
