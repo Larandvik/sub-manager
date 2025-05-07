@@ -1,4 +1,4 @@
-package com.larionov.subManager;
+package com.larionov.subscription.manager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
